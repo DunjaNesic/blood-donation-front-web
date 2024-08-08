@@ -1,0 +1,108 @@
+:host {
+  display: flex;
+  min-height: 100vh;
+  background-color: #F1F5FC;
+  font-family: 'Lexend', sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 65%;
+  padding: 2rem;
+  background-color: #F1F5FC;
+}
+
+.card-login {
+    box-shadow: 0px 1px 20px 1px rgba(0, 0, 0, 0.1);
+    min-width: 60%;
+    min-height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  background-color: #EC718D;
+}
+
+.welcome {
+  font-size: 2rem;
+  color: #490008;
+  margin-bottom: 2rem;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-width: 25rem;
+}
+
+.login-form label {
+  margin-bottom: 0.5rem;
+  color: #490008;
+}
+
+.login-form input {
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 0.2px solid #ccc;
+  border-radius: 10px;
+}
+
+.error {
+  color: red;
+  font-size: 0.875rem;
+  margin-bottom: 1rem;
+}
+
+.submit-button {
+  padding: 1rem 3rem;
+  background-color: #D81E49;
+  color: white;
+  border: none;
+  border-radius: 1.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  max-width: fit-content;
+  margin-top: 1.5rem;
+}
+
+.submit-button:disabled {
+  cursor: not-allowed;
+}
+
+.logo {
+  width: 15rem;
+  margin-bottom: 1rem;
+}
+
+.logo-container h2 {
+  font-size: 2.5rem;
+  color: #490008;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    min-width: 60%;
+}
