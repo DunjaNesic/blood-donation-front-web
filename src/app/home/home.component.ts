@@ -23,7 +23,6 @@ import { ChartComponent } from "../chart/chart.component";
 </select>
       <input type="text" placeholder="Pretraži...">
     </div>
-
     <div *ngIf="actions">
       <div *ngFor="let action of actions" class="action-item">
         <button class="details-btn">Detalji</button>

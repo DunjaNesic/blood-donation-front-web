@@ -1,0 +1,34 @@
+.card {
+    border: 0.0625rem solid #ccc;
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+    max-width: 16rem;
+    margin: 0.625rem;
+  }
+  
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    margin-bottom: 1.25rem;
+  }
+  
+  .drop-area {
+    border: 0.125rem dashed #785CBA;
+    height: 10rem;
+    background-color: rgba(236, 113, 141, 0.3);
+    margin-bottom: 0.625rem;
+    padding: 1rem;
+  }
+  
+  .add-button {
+    background-color: #F13662;
+    color: white;
+    padding: 0.5rem;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 0.25rem;
+  }
+  

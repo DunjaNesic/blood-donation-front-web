@@ -1,0 +1,53 @@
+.form-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    margin: 1.5rem 0rem;
+  }
+  
+  .card-container {
+    width: 85%;
+    display: flex;
+    gap: 1.25rem;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-bottom: 2.5rem;
+  }
+  
+  .create-button {
+    background-color: #F13662;
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    cursor: pointer;
+    display: block;
+    border-radius: 1rem;
+    font-size: 1rem;
+  }
+  
+  .pair {
+    display: flex;
+    justify-content: flex-start;
+    gap: 13rem;
+  }
+  
+  mat-form-field {
+    margin-bottom: 1.25rem !important;
+    background-color: #f1f5fc !important; 
+    border-radius: 4px !important;
+  }
+  
+  .mat-form-field-wrapper {
+    padding-bottom: 0.25rem !important;
+  }
+
+  .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: #f1f5fc !important;
+  }
+
+  mat-label{
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: #04103B;
+  }
