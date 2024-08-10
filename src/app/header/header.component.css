@@ -1,0 +1,41 @@
+.header {
+    width: 85%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem;
+    background-color: #F1F5FC;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+    color: #202530;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    color: #04103B;
+    gap: 1rem;
+}
+
+.user-profile button {
+    padding: 0.5rem 1rem;
+    border: 2px solid #04103B;
+    background-color: #F1F5FC;
+    color: #04103B;
+    font-weight: bold;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.user-profile button:hover {
+    background-color: #04103B;
+    color: #F1F5FC;
+}

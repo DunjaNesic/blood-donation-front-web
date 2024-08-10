@@ -1,16 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;700&display=swap');
+
 .sidebar {
     background-color: #F13662;
     padding: 1rem;
-    height: 100vh;
-    width: 15vw;
+    min-height: 100vh;
+    min-width: 15vw;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
   }
   
   .sidebar-logo {
-    margin-bottom: 2rem;
+    margin: 1rem 0rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -30,14 +32,24 @@
     width: 100%;
   }
   
+  .mat-icon {
+    font-size: 1rem; 
+    display: flex;
+    align-items: center;
+  }
+
   .nav-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Lexend', sans-serif;
     width: 100%;
     padding: 1rem;
     margin: 0.5rem 0;
     background-color: transparent;
     border: none;
     color: white;
-    font-size: 1.2rem;
+    font-size: 1rem;
     cursor: pointer;
     text-align: center;
   }
@@ -45,6 +57,8 @@
   .nav-button.active {
     background-color: #F1F5FC;
     color: #F13662;
+    font-weight: bolder;
+    border-radius: 1rem;
   }
   
   .nav-button:hover {

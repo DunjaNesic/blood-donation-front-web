@@ -3,19 +3,58 @@ import { TransfusionAction } from '../../types';
 import { CommonModule } from '@angular/common';
 import { ActionsService } from '../services/transfusion_action/actions.service';
 import { AuthService } from '../services/auth/auth.service';
-import { SidebarComponent } from '../sidebar/sidebar.component';
+import { HeaderComponent } from './../header/header.component';
+import { ChartComponent } from "../chart/chart.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, SidebarComponent],
+  imports: [CommonModule, HeaderComponent, ChartComponent],
   template: `
-    <app-sidebar></app-sidebar>   
-    <button (click)="logoutt()">Logout</button>
+    <app-header [title]="'Pregled akcija'"></app-header>
+    <div class="filters">
+    <select>
+  <option value="grad">Grad</option>
+  <option value="beograd">Beograd</option>
+  <option value="smederevo">Smederevo</option>
+  <option value="cacak">Čačak</option>
+  <option value="kraljevo">Kraljevo</option>
+  <option value="pancevo">Pančevo</option>
+</select>
+      <input type="text" placeholder="Pretraži...">
+    </div>
+
     <div *ngIf="actions">
-      <p *ngFor="let action of actions">
-        {{ action.actionName }}
-      </p>
+      <div *ngFor="let action of actions" class="action-item">
+        <button class="details-btn">Detalji</button>
+        <span class="action-name">{{ action.actionName }}</span>
+        <span class="action-date">{{ action.actionDate }}</span>
+        <span class="action-time">{{ action.actionTimeFromTo }}</span>
+        <span class="action-location">{{ action.placeName }}</span>
+        <span class="action-address">{{ action.exactLocation }}</span>
+      </div>
+    </div>
+
+    <div class="stats-container">
+      <div class="graph">
+        <app-chart></app-chart>
+      </div>
+      <div class="stats">
+        <div class="stat-item">     
+          <div class="item">
+          <h2>Broj aktivnih davalaca krvi</h2>
+          <span class="stat-number">142 113</span>
+          <span class="stat-year">Stanje 2024. <br> godine</span>
+          </div>
+          <div class="item">
+          <h2>Broj aktivnih volontera crvenog krsta</h2>
+          <span class="stat-number">1337</span>
+          <span class="stat-year">Stanje 2024. <br> godine</span>
+        </div>
+        </div>
+
+       
+      </div>
     </div>
   `,
   styleUrls: ['./home.component.css']
@@ -24,11 +63,6 @@ export class HomeComponent implements OnInit {
   actions: TransfusionAction[] | undefined;
 
   constructor(private actionService: ActionsService, private authService: AuthService) { }
-
-
-  logoutt(): void{
-    this.authService.logout();
-  }
 
   ngOnInit(): void {
     this.actionService.getActions('/itk/actions', { pageNumber: 1, pageSize: 10 })

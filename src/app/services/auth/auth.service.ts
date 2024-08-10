@@ -28,6 +28,7 @@ export class AuthService {
   }
 
   setUserFromStorage(): Promise<void> {
+    console.log("setting user from storage");
     return new Promise((resolve) => {
       if (isPlatformBrowser(this.platformId)) {
         const userString = localStorage.getItem('user');

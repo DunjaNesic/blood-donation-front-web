@@ -75,7 +75,13 @@ export class LoginComponent implements OnInit {
         next: (user) => {
           console.log('Login successful', user);
           localStorage.setItem("user", JSON.stringify(user));
-          this.router.navigateByUrl('home');
+          
+          this.authService.setUserFromStorage().then(() => {
+            this.router.navigateByUrl('home');
+          }).catch((err) => {
+            console.error('Error setting user from storage:', err);
+            this.showErrorDialog("Doslo je do greske, molimo pokusajte kasnije");
+          });
         },
         error: (err) => {
           if (err.status === 401) {
@@ -87,6 +93,7 @@ export class LoginComponent implements OnInit {
       });
     }
   }
+  
 
   private showErrorDialog(message: string): void {
     this.dialog.open(ErrorDialogComponent, {

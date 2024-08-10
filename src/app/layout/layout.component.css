@@ -1,0 +1,29 @@
+.layout {
+    display: flex;
+    min-height: 100%;
+    background-color: #F13662;
+  }
+  
+  /* app-sidebar {
+    min-width: 15vw;
+  }
+   */
+  .content-wrapper {
+    min-height: 100vh;
+    min-width: 85vw;
+    z-index: 10;
+    flex: 1;
+    background-color: #f1f5fc;
+    border-top-left-radius: 2rem;
+    border-bottom-left-radius: 2rem;
+    /* overflow: hidden; */
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    }
+  
+  .content {
+    flex: 1;
+    padding: 1.5rem;
+  }
+  
