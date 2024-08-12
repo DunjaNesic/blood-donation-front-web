@@ -1,0 +1,42 @@
+.card {
+    border: 0.0625rem solid #ccc;
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+    min-width: 16rem;
+    margin: 0.625rem;
+    flex: 0 0 auto;
+  }
+  
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    margin-bottom: 1.25rem;
+  }
+  
+  .card-body p {
+    margin: 0.5rem 0;
+  }
+  
+  .drop-area {
+    border: 0.125rem dashed #E91E63; 
+    height: 10rem;
+    background-color: rgba(233, 30, 99, 0.1); 
+    margin-bottom: 0.625rem;
+    padding: 1rem;
+}
+
+.add-button {
+    background-color: #F06292; 
+    color: white;
+    padding: 0.5rem;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 0.25rem;
+}
+
+.add-button:hover {
+    background-color: #D81B60; 
+}

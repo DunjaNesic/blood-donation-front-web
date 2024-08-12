@@ -13,4 +13,8 @@ export class OfficialsService {
   getOfficialByUserID(id: number): Observable<Official>{
     return this.apiservice.get<Official>(`/itk/officials/${id}`);
   }
+
+  getAll(url: string, officialsID?: number): Observable<Official[]> {
+    return this.apiservice.get<Official[]>(`${url}?officialsID=${officialsID}`);
+  }
 }

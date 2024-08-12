@@ -1,0 +1,29 @@
+.card {
+    border: 0.0625rem solid #ccc;
+    border-radius: 0.5rem;
+    padding: 1.25rem;
+    width: 16rem;
+    text-align: center;
+    background-color: #fff;
+    margin: 0.625rem;
+    flex: 0 0 auto;
+  }
+  
+  .icon-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+  
+  .user-icon {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+  }
+  
+  .official-name {
+    font-weight: bold;
+    font-size: 1.125rem;
+    color: #333;
+  }
+  

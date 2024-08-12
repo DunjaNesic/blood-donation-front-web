@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from './../header/header.component';
 import { CommonModule} from '@angular/common';
+import { TransfusionAction } from '../../types';
+import { ActionsService } from '../services/transfusion_action/actions.service';
 
 @Component({
   selector: 'app-finished-actions',
@@ -19,10 +21,10 @@ import { CommonModule} from '@angular/common';
       <span></span>
     </div>
     <div class="table-row" *ngFor="let action of actions">
-      <div class="table-cell">{{ action.name }}</div>
-      <div class="table-cell">{{ action.city }}</div>
-      <div class="table-cell">{{ action.location }}</div>
-      <div class="table-cell">{{ action.time }}</div>
+      <div class="table-cell">{{ action.actionName }}</div>
+      <div class="table-cell">{{ action.placeName }}</div>
+      <div class="table-cell">{{ action.exactLocation }}</div>
+      <div class="table-cell">{{ action.actionTimeFromTo }}</div>
       <div class="table-cell">
         <button class="stats-button">Stats</button>
       </div>
@@ -35,69 +37,23 @@ import { CommonModule} from '@angular/common';
 })
 
 export class FinishedActionsComponent {
-  actions = [
-    {
-      name: 'Akcija u Smederevu',
-      city: 'Smederevo',
-      location: 'Cernisevskog',
-      time: '10:00-13:00',
-      status: 'In Process'
-    },
-    {
-      name: 'Akcija studenata',
-      city: 'Beograd',
-      location: 'Vojvode Stepe',
-      time: '12:00-14:00',
-      status: 'Rejected'
-    },
-    {
-      name: 'Ujedinjenje za zivot',
-      city: 'Nis',
-      location: 'Kajmakcalanska',
-      time: '12:00-15:00',
-      status: 'Paid'
-    },
-    {
-      name: 'Budi i ti neciji heroj',
-      city: 'Beograd',
-      location: 'Petrovacka',
-      time: '08:00-10:00',
-      status: 'Pending'
-    },
-    {
-      name: 'Pomoc za decu',
-      city: 'Novi Sad',
-      location: 'Bulevar Oslobodjenja',
-      time: '09:00-11:00',
-      status: 'Paid'
-    },
-    {
-      name: 'Zeleni park',
-      city: 'Subotica',
-      location: 'Park Palic',
-      time: '10:00-12:00',
-      status: 'In Process'
-    },
-    {
-      name: 'Izgradnja skolske biblioteke',
-      city: 'Kragujevac',
-      location: 'Petrovac na Mlavi',
-      time: '13:00-15:00',
-      status: 'Pending'
-    },
-    {
-      name: 'Humanitarni koncert',
-      city: 'Niš',
-      location: 'Dom kulture',
-      time: '17:00-19:00',
-      status: 'Paid'
-    },
-    {
-      name: 'Pomoć ugroženima',
-      city: 'Valjevo',
-      location: 'Karađorđeva',
-      time: '14:00-16:00',
-      status: 'Rejected'
-    }
-  ];
+  actions: TransfusionAction[] | undefined;
+
+  constructor(private actionService: ActionsService) { }
+
+  ngOnInit(): void {
+
+    const today = new Date().toISOString().split('T')[0];
+
+    this.actionService.getActions('/itk/actions', { pageNumber: 1, pageSize: 10, minDate: '2000-06-08', maxDate: today})
+      .subscribe({
+        next: (actions) => {
+          this.actions = actions;
+          console.log(actions);
+        },
+        error: (error) => {
+          console.error('Error fetching actions:', error);
+        }
+      });
+  }
 }

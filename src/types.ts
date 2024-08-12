@@ -43,3 +43,25 @@ export interface Official {
     officialFullName: string,
     userID: number
 }
+
+export interface Volunteer {
+    volunteerID: number,
+    volunteerFullName: string,
+    dateFreeFrom: string,
+    dateFreeTo: string,
+    redCross: string
+}
+
+export interface Donor {
+    jmbg: string,
+    donorFullName: string,
+    bloodType: number,
+    placeName: string,
+    isActive: boolean,
+    lastDonationDate: string,
+}
+
+export interface Place {
+    placeID: number,
+    placeName: string
+}

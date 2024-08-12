@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { TransfusionAction } from '../../types';
+import { Place, TransfusionAction } from '../../types';
 import { CommonModule } from '@angular/common';
 import { ActionsService } from '../services/transfusion_action/actions.service';
 import { AuthService } from '../services/auth/auth.service';
 import { HeaderComponent } from './../header/header.component';
 import { ChartComponent } from "../chart/chart.component";
+import { PlacesService } from '../services/place/places.service';
 
 @Component({
   selector: 'app-home',
@@ -14,13 +15,9 @@ import { ChartComponent } from "../chart/chart.component";
     <app-header [title]="'Pregled akcija'"></app-header>
     <div class="filters">
     <select>
-  <option value="grad">Grad</option>
-  <option value="beograd">Beograd</option>
-  <option value="smederevo">Smederevo</option>
-  <option value="cacak">Čačak</option>
-  <option value="kraljevo">Kraljevo</option>
-  <option value="pancevo">Pančevo</option>
-</select>
+      <option value="" disabled selected>Grad</option>
+      <option *ngFor="let place of places" [value]="place.placeName">{{ place.placeName }}</option>
+    </select>
       <input type="text" placeholder="Pretraži...">
     </div>
     <div *ngIf="actions">
@@ -60,10 +57,23 @@ import { ChartComponent } from "../chart/chart.component";
 })
 export class HomeComponent implements OnInit {
   actions: TransfusionAction[] | undefined;
+  places: Place[] = []; 
 
-  constructor(private actionService: ActionsService, private authService: AuthService) { }
+  constructor(private actionService: ActionsService, private authService: AuthService, private placeService: PlacesService) { }
 
   ngOnInit(): void {
+
+    this.placeService.getAll('/itk/places')
+    .subscribe({
+      next: (place) => {
+        this.places = place;
+        console.log(place);
+      },
+      error: (error) => {
+        console.error('Error fetching places:', error);
+      }
+    });
+
     this.actionService.getActions('/itk/actions', { pageNumber: 1, pageSize: 10 })
       .subscribe({
         next: (actions) => {

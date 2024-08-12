@@ -18,4 +18,9 @@ export class ActionsService {
       }
     );       
   }
+
+  createAction(actionData: any): Observable<TransfusionAction> {
+    return this.apiService.post<TransfusionAction>('/itk/actions', actionData, {});
+  }
+
 }

@@ -11,9 +11,9 @@ import { CommonModule, DatePipe } from '@angular/common';
       </div>
       <div class="card-body"> 
         <div class="drop-area">
-        <p><strong>Date Free From:</strong> {{dateFreeFrom | date}}</p>
-        <p><strong>Date Free To:</strong> {{dateFreeTo | date}}</p>
-        <p><strong>Red Cross:</strong> {{redCross}}</p>
+        <p><strong>Slobodan od:</strong> {{dateFreeFrom | date}}</p>
+        <p><strong>Slobodan do:</strong> {{dateFreeTo | date}}</p>
+        <p><strong>Crveni krst:</strong> {{redCross}}</p>
         </div>
         <button class="add-button">Dodaj</button>
       </div>
