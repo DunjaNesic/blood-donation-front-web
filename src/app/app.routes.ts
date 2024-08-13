@@ -5,6 +5,8 @@ import { authGuard } from './guards/auth.guard';
 import { AppLayoutComponent } from './layout/layout.component';
 import { ActionCreationComponent } from './action-creation/action-creation.component';
 import { FinishedActionsComponent } from './finished-actions/finished-actions.component';
+import { ActionStatisticsComponent } from './action-statistics/action-statistics.component';
+import { ActionDetailsComponent } from './action-details/action-details.component';
 
 export const routes: Routes = [
     {
@@ -32,6 +34,14 @@ export const routes: Routes = [
         {
           path: 'finished',
           component: FinishedActionsComponent
+        },
+        {
+          path: 'finished/:actionID',
+          component: ActionStatisticsComponent
+        },
+        {
+          path: 'details/:actionID',
+          component: ActionDetailsComponent
         }
       ]
     }

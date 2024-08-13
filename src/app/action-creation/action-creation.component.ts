@@ -45,9 +45,9 @@ import { ActionsService } from '../services/transfusion_action/actions.service';
 
 <div class="pair">
 <select formControlName="placeID">
-    <option value="" disabled selected>Grad</option>
-    <option *ngFor="let place of places" [value]="place.placeID">{{ place.placeName }}</option>
-  </select>
+  <option [ngValue]="null" disabled>Grad</option>
+  <option *ngFor="let place of places" [value]="place.placeID">{{ place.placeName }}</option>
+</select>
   <app-input-field 
     label="Tačna adresa" 
     placeholder="Adresa..." 

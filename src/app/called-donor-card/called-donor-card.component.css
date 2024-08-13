@@ -1,0 +1,46 @@
+  .donor-card {
+    min-width: 15rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    background-color: #f5f0ff; 
+    color: #1e2a78; 
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .drop-icon{
+    height: 3rem;
+  }
+  
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  p {
+    margin: 4px 0;
+    font-size: 1rem;
+  }
+  
+  .status {
+    display: flex;
+    align-items: center;
+    color: #fb8691; 
+    font-weight: bold;
+    margin-top: 0.75rem;
+  }
+  
+  .status-icon {
+    font-size: 1.2rem;
+    margin-right: 4px;
+    color: #f1acb6; 
+  }
+  
+
+  

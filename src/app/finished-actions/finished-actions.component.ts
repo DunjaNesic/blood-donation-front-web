@@ -3,6 +3,7 @@ import { HeaderComponent } from './../header/header.component';
 import { CommonModule} from '@angular/common';
 import { TransfusionAction } from '../../types';
 import { ActionsService } from '../services/transfusion_action/actions.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-finished-actions',
@@ -26,7 +27,7 @@ import { ActionsService } from '../services/transfusion_action/actions.service';
       <div class="table-cell">{{ action.exactLocation }}</div>
       <div class="table-cell">{{ action.actionTimeFromTo }}</div>
       <div class="table-cell">
-        <button class="stats-button">Stats</button>
+      <button class="stats-button" (click)="viewStats(action.actionID)">Stats</button>
       </div>
     </div>
   </div>
@@ -39,7 +40,7 @@ import { ActionsService } from '../services/transfusion_action/actions.service';
 export class FinishedActionsComponent {
   actions: TransfusionAction[] | undefined;
 
-  constructor(private actionService: ActionsService) { }
+  constructor(private actionService: ActionsService, private router: Router) { }
 
   ngOnInit(): void {
 
@@ -55,5 +56,9 @@ export class FinishedActionsComponent {
           console.error('Error fetching actions:', error);
         }
       });
+  }
+  
+  viewStats(actionID: number): void {
+    this.router.navigate(['/finished', actionID]); 
   }
 }

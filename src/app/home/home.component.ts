@@ -6,6 +6,7 @@ import { AuthService } from '../services/auth/auth.service';
 import { HeaderComponent } from './../header/header.component';
 import { ChartComponent } from "../chart/chart.component";
 import { PlacesService } from '../services/place/places.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -22,8 +23,8 @@ import { PlacesService } from '../services/place/places.service';
     </div>
     <div *ngIf="actions">
       <div *ngFor="let action of actions" class="action-item">
-        <button class="details-btn">Detalji</button>
-        <span class="action-name">{{ action.actionName }}</span>
+      <button class="details-btn" (click)="goToDetails(action.actionID)">Detalji</button>
+      <span class="action-name">{{ action.actionName }}</span>
         <span class="action-date">{{ action.actionDate }}</span>
         <span class="action-time">{{ action.actionTimeFromTo }}</span>
         <span class="action-location">{{ action.placeName }}</span>
@@ -59,7 +60,11 @@ export class HomeComponent implements OnInit {
   actions: TransfusionAction[] | undefined;
   places: Place[] = []; 
 
-  constructor(private actionService: ActionsService, private authService: AuthService, private placeService: PlacesService) { }
+  constructor(private router: Router, private actionService: ActionsService, private authService: AuthService, private placeService: PlacesService) { }
+
+  goToDetails(actionID: number): void {
+    this.router.navigate([`/details/${actionID}`]);
+  }
 
   ngOnInit(): void {
 
@@ -85,4 +90,5 @@ export class HomeComponent implements OnInit {
         }
       });
   }
+  
 }
