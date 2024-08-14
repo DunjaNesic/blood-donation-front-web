@@ -2,8 +2,9 @@
 
 .sidebar {
     background-color: #F13662;
-    padding: 1rem;
-    min-height: 100vh;
+    /* padding: 1rem; */
+    /* min-height: 100vh; */
+    min-height: 100%;
     min-width: 15vw;
     display: flex;
     flex-direction: column;

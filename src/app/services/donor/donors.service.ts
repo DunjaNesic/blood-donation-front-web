@@ -17,4 +17,15 @@ export class DonorsService {
       }
     );       
   }
+
+  createCallToDonor(url: string, body: any): Observable<any> {
+    return this.apiService.post<any>(url, body, {});
+  }
+
+  getCalledDonors(actionID: number): Observable<Donor[]> {
+    const url = `/itk/actions/called-donors?actionID=${actionID}`;
+    return this.apiService.get<Donor[]>(url, {
+      responseType: 'json'
+    });
+  }
 }

@@ -34,7 +34,6 @@
   }
   
   mat-form-field {
-    margin-bottom: 1.25rem !important;
     background-color: #f1f5fc !important; 
     border-radius: 4px !important;
   }
@@ -80,3 +79,13 @@
     background-color: #F1F5FC;
     height: fit-content;
   }
+  
+  .error {
+    color: red;
+    font-size: 0.875em;
+  }
+  
+  .create-button:disabled {
+    cursor: not-allowed;
+  }
+  

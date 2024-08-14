@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { CalledDonorCardComponent } from '../called-donor-card/called-donor-card.component';
 import { Donor, Volunteer } from '../../types';
 import { CommonModule } from '@angular/common';
@@ -9,6 +8,8 @@ import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DonorModalComponent } from '../donor-modal/donor-modal.component';
 import { VolunteerModalComponent } from '../volunteer-modal/volunteer-modal.component';
+import { DonorsService } from '../services/donor/donors.service';
+import { VolunteersService } from '../services/volunteer/volunteers.service';
 
 @Component({
   selector: 'app-action-details',
@@ -48,7 +49,7 @@ export class ActionDetailsComponent implements OnInit {
   donors: Donor[] = [];
   volunteers: Volunteer[] = [];
 
-  constructor(private http: HttpClient, private route: ActivatedRoute, private dialog: MatDialog) {}
+  constructor(private route: ActivatedRoute, private dialog: MatDialog, private donorService: DonorsService, private volunteerService: VolunteersService) {}
 
   ngOnInit(): void {
     this.fetchData();
@@ -57,25 +58,25 @@ export class ActionDetailsComponent implements OnInit {
   fetchData(): void {
     const actionID = Number(this.route.snapshot.paramMap.get('actionID'));
 
-    this.http.get<Donor[]>(`https://localhost:7062/itk/actions/called-donors?actionID=${actionID}`)
-      .subscribe({
-        next: (response) => {
-          this.donors = response;
-        },
-        error: (error) => {
-          console.error('Error fetching called donors:', error);
-        }
-      });
+    this.donorService.getCalledDonors(actionID)
+    .subscribe({
+      next: (response) => {
+        this.donors = response;
+      },
+      error: (error) => {
+        console.error('Error fetching called donors:', error);
+      }
+    });
 
-    this.http.get<Volunteer[]>(`https://localhost:7062/itk/actions/called-volunteers?actionID=${actionID}`)
-      .subscribe({
-        next: (response) => {
-          this.volunteers = response;
-        },
-        error: (error) => {
-          console.error('Error fetching called volunteers:', error);
-        }
-      });
+  this.volunteerService.getCalledVolunteers(actionID)
+    .subscribe({
+      next: (response) => {
+        this.volunteers = response;
+      },
+      error: (error) => {
+        console.error('Error fetching called volunteers:', error);
+      }
+    });
   }
 
   openDonorModal(): void {

@@ -22,5 +22,12 @@ export class ActionsService {
   createAction(actionData: any): Observable<TransfusionAction> {
     return this.apiService.post<TransfusionAction>('/itk/actions', actionData, {});
   }
+  
+  getActionStatistics(actionID: string): Observable<any> {
+    const url = `/itk/actions/stats/${actionID}`;
+    return this.apiService.get<any>(url, {
+      responseType: 'json'
+    });
+  }
 
 }

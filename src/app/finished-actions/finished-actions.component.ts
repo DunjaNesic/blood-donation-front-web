@@ -4,6 +4,7 @@ import { CommonModule} from '@angular/common';
 import { TransfusionAction } from '../../types';
 import { ActionsService } from '../services/transfusion_action/actions.service';
 import { Router } from '@angular/router';
+import { ScrollService } from '../services/scroll/scroll.service';
 
 @Component({
   selector: 'app-finished-actions',
@@ -40,13 +41,15 @@ import { Router } from '@angular/router';
 export class FinishedActionsComponent {
   actions: TransfusionAction[] | undefined;
 
-  constructor(private actionService: ActionsService, private router: Router) { }
+  constructor(private actionService: ActionsService, private router: Router, private scrollService: ScrollService) { }
 
   ngOnInit(): void {
 
+    this.scrollService.scrollToTop();
+
     const today = new Date().toISOString().split('T')[0];
 
-    this.actionService.getActions('/itk/actions', { pageNumber: 1, pageSize: 10, minDate: '2000-06-08', maxDate: today})
+    this.actionService.getActions('/itk/actions', { pageNumber: 1, pageSize: 42, minDate: '2000-06-08', maxDate: today})
       .subscribe({
         next: (actions) => {
           this.actions = actions;

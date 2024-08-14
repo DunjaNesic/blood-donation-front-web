@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { MatDialogRef, MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Volunteer } from '../../types';
 import { VolunteersService } from '../services/volunteer/volunteers.service'; 
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-volunteer-modal',
@@ -40,7 +39,6 @@ export class VolunteerModalComponent implements OnInit {
   constructor(
     private volunteerService: VolunteersService,
     private dialogRef: MatDialogRef<VolunteerModalComponent>,
-    private http: HttpClient,
     @Inject(MAT_DIALOG_DATA) public data: { actionID: number }
   ) {}
 
@@ -66,14 +64,14 @@ export class VolunteerModalComponent implements OnInit {
 
     console.log(postData);
 
-    this.http.post('https://localhost:7062/itk/volunteers', postData)
-      .subscribe({
-        next: (response) => {
-          console.log('POST request successful:', response);
-          this.dialogRef.close();
-        },
-        error: (error) => console.error('Error during POST request:', error)
-      });
+    this.volunteerService.createCallToVolunteer('/itk/volunteers', postData)
+    .subscribe({
+      next: (response) => {
+        console.log('POST request successful:', response);
+        this.dialogRef.close();
+      },
+      error: (error) => console.error('Error during POST request:', error)
+    });
   }
 
   onClose(): void {

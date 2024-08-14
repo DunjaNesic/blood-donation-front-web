@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { MatDialogRef, MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Donor } from '../../types';
 import { DonorsService } from '../services/donor/donors.service';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-donor-modal',
@@ -41,7 +40,6 @@ export class DonorModalComponent implements OnInit {
   constructor(
     private donorService: DonorsService,
     private dialogRef: MatDialogRef<DonorModalComponent>,
-    private http: HttpClient,
     @Inject(MAT_DIALOG_DATA) public data: { actionID: number }
   ) {}
 
@@ -67,14 +65,15 @@ export class DonorModalComponent implements OnInit {
 
     console.log(postData);
 
-    this.http.post('https://localhost:7062/itk/donors', postData)
-      .subscribe({
-        next: (response) => {
-          console.log('POST request successful:', response);
-          this.dialogRef.close();
-        },
-        error: (error) => console.error('Error during POST request:', error)
-      });
+    this.donorService.createCallToDonor('/itk/donors', postData)
+    .subscribe({
+      next: (response) => {
+        console.log('POST request successful:', response);
+        this.dialogRef.close();
+      },
+      error: (error) => console.error('Error during POST request:', error)
+    });
+
   }
 
   onClose(): void {

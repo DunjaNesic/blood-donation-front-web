@@ -7,21 +7,25 @@ import { HeaderComponent } from './../header/header.component';
 import { ChartComponent } from "../chart/chart.component";
 import { PlacesService } from '../services/place/places.service';
 import { Router } from '@angular/router';
+import { ReactiveFormsModule, FormControl } from '@angular/forms';
+import { ScrollService } from '../services/scroll/scroll.service';
+import { DonorsService } from '../services/donor/donors.service';
+import { VolunteersService } from '../services/volunteer/volunteers.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, HeaderComponent, ChartComponent],
+  imports: [CommonModule, HeaderComponent, ChartComponent, ReactiveFormsModule],
   template: `
     <app-header [title]="'Pregled akcija'"></app-header>
     <div class="filters">
-    <select>
-      <option value="" disabled selected>Grad</option>
-      <option *ngFor="let place of places" [value]="place.placeName">{{ place.placeName }}</option>
-    </select>
-      <input type="text" placeholder="Pretraži...">
+    <select [formControl]="placeControl">
+        <option value="0" selected>Svi gradovi</option> 
+        <option *ngFor="let place of places" [value]="place.placeID">{{ place.placeName }}</option>
+      </select>
+    <input [formControl]="searchControl" type="text" placeholder="Pretraži...">
     </div>
-    <div *ngIf="actions">
+    <div class="smth" *ngIf="actions">
       <div *ngFor="let action of actions" class="action-item">
       <button class="details-btn" (click)="goToDetails(action.actionID)">Detalji</button>
       <span class="action-name">{{ action.actionName }}</span>
@@ -33,24 +37,22 @@ import { Router } from '@angular/router';
     </div>
 
     <div class="stats-container">
-      <div class="graph">
+      <!-- <div class="graph">
         <app-chart></app-chart>
-      </div>
+      </div> -->
       <div class="stats">
         <div class="stat-item">     
           <div class="item">
           <h2>Broj aktivnih davalaca krvi</h2>
-          <span class="stat-number">142 113</span>
+          <span class="stat-number">{{donorCount}}</span>
           <span class="stat-year">Stanje 2024. <br> godine</span>
           </div>
           <div class="item">
           <h2>Broj aktivnih volontera crvenog krsta</h2>
-          <span class="stat-number">1337</span>
+          <span class="stat-number">{{volunteerCount}}</span>
           <span class="stat-year">Stanje 2024. <br> godine</span>
         </div>
-        </div>
-
-       
+        </div>      
       </div>
     </div>
   `,
@@ -59,36 +61,81 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
   actions: TransfusionAction[] | undefined;
   places: Place[] = []; 
+  searchControl = new FormControl('');
+  placeControl = new FormControl('0');
+  donorCount: number = 0;
+  volunteerCount: number = 0;
 
-  constructor(private router: Router, private actionService: ActionsService, private authService: AuthService, private placeService: PlacesService) { }
+  constructor(private router: Router, private actionService: ActionsService, private authService: AuthService, private placeService: PlacesService, private scrollService: ScrollService, private donorService: DonorsService, private volunteerService: VolunteersService) { }
 
   goToDetails(actionID: number): void {
     this.router.navigate([`/details/${actionID}`]);
   }
 
   ngOnInit(): void {
+    
+    this.scrollService.scrollToTop();
 
     this.placeService.getAll('/itk/places')
-    .subscribe({
-      next: (place) => {
-        this.places = place;
-        console.log(place);
-      },
-      error: (error) => {
-        console.error('Error fetching places:', error);
-      }
-    });
+      .subscribe({
+        next: (places) => {
+          this.places = places;
+        },
+        error: (error) => {
+          console.error('Error fetching places:', error);
+        }
+      });
 
-    this.actionService.getActions('/itk/actions', { pageNumber: 1, pageSize: 10 })
+      this.searchControl.valueChanges.subscribe((searchTerm) => {
+        this.getActions(searchTerm ?? '', 0);
+      });
+
+      this.placeControl.valueChanges.subscribe(() => {
+        const placeValue = this.placeControl.value;
+        const placeID = placeValue !== null ? +placeValue : 0; 
+        this.getActions(this.searchControl.value || '', placeID);
+      });
+      
+
+    this.getActions('', 0);
+    this.getDonorCount();
+    this.getVolunteerCount();
+  }
+
+  private getActions(searchTerm: string, placeID: number): void {
+    this.actionService.getActions('/itk/actions', { pageNumber: 1, pageSize: 10, search: searchTerm, placeID: placeID})
       .subscribe({
         next: (actions) => {
           this.actions = actions;
-          console.log(actions);
         },
         error: (error) => {
           console.error('Error fetching actions:', error);
         }
       });
   }
-  
+
+  private getDonorCount(): void {
+    this.donorService.getDonors('/itk/donors')
+      .subscribe({
+        next: (donors) => {
+          this.donorCount = donors.length;
+        },
+        error: (error) => {
+          console.error('Error fetching donors:', error);
+        }
+      });
+  }
+
+  private getVolunteerCount(): void {
+    this.volunteerService.getVolunteers('/itk/volunteers')
+      .subscribe({
+        next: (volunteers) => {
+          this.volunteerCount = volunteers.length;
+        },
+        error: (error) => {
+          console.error('Error fetching volunteers:', error);
+        }
+      });
+
+ }
 }

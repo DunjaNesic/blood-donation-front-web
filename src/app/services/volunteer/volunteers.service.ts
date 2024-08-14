@@ -17,4 +17,15 @@ export class VolunteersService {
       }
     );       
   }
+
+  createCallToVolunteer(url: string, body: any): Observable<any> {
+    return this.apiService.post<any>(url, body, {});
+  }
+
+  getCalledVolunteers(actionID: number): Observable<Volunteer[]> {
+    const url = `/itk/actions/called-volunteers?actionID=${actionID}`;
+    return this.apiService.get<Volunteer[]>(url, {
+      responseType: 'json'
+    });
+  }
 }

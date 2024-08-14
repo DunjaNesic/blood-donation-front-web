@@ -1,29 +1,34 @@
 .card {
-    border: 0.0625rem solid #ccc;
-    border-radius: 0.5rem;
-    padding: 1.25rem;
-    width: 16rem;
-    text-align: center;
-    background-color: #fff;
-    margin: 0.625rem;
-    flex: 0 0 auto;
-  }
-  
-  .icon-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 1rem;
-  }
-  
-  .user-icon {
-    width: 4rem;
-    height: 4rem;
-    border-radius: 50%;
-  }
-  
-  .official-name {
-    font-weight: bold;
-    font-size: 1.125rem;
-    color: #333;
-  }
-  
+  border: 0.0625rem solid #ccc;
+  border-radius: 0.5rem;
+  padding: 1.25rem;
+  width: 16rem;
+  text-align: center;
+  background-color: #fff;
+  margin: 0.625rem;
+  flex: 0 0 auto;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.card.selected {
+  background-color: #a9e5ec; 
+}
+
+.icon-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.user-icon {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+}
+
+.official-name {
+  font-weight: bold;
+  font-size: 1.125rem;
+  color: #333;
+}

@@ -20,7 +20,7 @@ import { CommonModule } from '@angular/common';
               <label for="email">Email</label>
               <input id="email" formControlName="email" type="email">
               <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="error">
-                Email is required and must be a valid email.
+                Unesite validnu email adresu
               </div>
             </div>
             
@@ -28,7 +28,7 @@ import { CommonModule } from '@angular/common';
               <label for="password">Lozinka</label>
               <input id="password" formControlName="password" type="password">
               <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="error">
-                Password is required.
+                Unesite sifru
               </div>
             </div>      
 
@@ -94,7 +94,6 @@ export class LoginComponent implements OnInit {
     }
   }
   
-
   private showErrorDialog(message: string): void {
     this.dialog.open(ErrorDialogComponent, {
       data: { message: message },

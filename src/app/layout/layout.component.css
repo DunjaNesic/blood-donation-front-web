@@ -4,13 +4,13 @@
     background-color: #F13662;
   }
   
-  /* app-sidebar {
-    min-width: 15vw;
+  app-sidebar {
+    padding: 1rem;
   }
-   */
+  
   .content-wrapper {
-    min-height: 100vh;
-    min-width: 85vw;
+    min-height: 100%;
+    min-width: 85vw; 
     z-index: 10;
     flex: 1;
     background-color: #f1f5fc;

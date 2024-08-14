@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from "../header/header.component";
 import { Chart } from 'chart.js';
+import { ActionsService } from '../services/transfusion_action/actions.service';
 
 @Component({
   selector: 'app-action-statistics',
@@ -60,7 +60,7 @@ import { Chart } from 'chart.js';
 export class ActionStatisticsComponent implements OnInit {
   stats: any;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {}
+  constructor(private route: ActivatedRoute, private actionService: ActionsService) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
@@ -71,30 +71,37 @@ export class ActionStatisticsComponent implements OnInit {
     });
   }
 
-processTimeIntervals(timeIntervals: string[]): { labels: string[], data: number[] } {
-  const hoursCount = new Array(24).fill(0); 
-
-  timeIntervals.forEach(dateString => {
-    const date = new Date(dateString);
-    const hour = date.getHours();
-    hoursCount[hour]++;
-  });
-
-  const labels = Array.from({ length: 24 }, (_, i) => `${i}:00`);
-  return { labels, data: hoursCount };
-}
-
-
-  fetchActionStats(actionID: string): void {
-    this.http.get(`https://localhost:7062/itk/actions/stats/${actionID}`)
-      .subscribe((data: any) => {
-        this.stats = data;
-        console.log('Fetched stats:', this.stats); 
-        this.initializeCharts();
-      }, (error) => {
-        console.error('Error fetching stats:', error); 
-      });
+  processTimeIntervals(timeIntervals: string[]): { labels: string[], data: number[] } {
+    const hoursCount = new Array(16).fill(0);
+    const startHour = 7; 
+    const endHour = 21; 
+  
+    timeIntervals.forEach(dateString => {
+      const date = new Date(dateString);
+      const hour = date.getHours();
+      if (hour >= startHour && hour <= endHour) {
+        hoursCount[hour - startHour]++; 
+      }
+    });
+  
+    const labels = Array.from({ length: 16 }, (_, i) => `${i + startHour}:00`);
+  
+    return { labels, data: hoursCount };
   }
+
+fetchActionStats(actionID: string): void {
+  this.actionService.getActionStatistics(actionID)
+    .subscribe({
+      next: (data) => {
+        this.stats = data;
+        console.log('Fetched stats:', this.stats);
+        this.initializeCharts(); 
+      },
+      error: (error) => {
+        console.error('Error fetching stats:', error);
+      }
+    });
+}
 
   initializeCharts(): void {
     console.log('Time Intervals Data:', this.stats?.timeIntervals);

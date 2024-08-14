@@ -4,6 +4,7 @@
     gap: 1rem;
     padding: 1.25rem 0;
     color: #04103B;
+    font-family: 'Lexend', sans-serif;
 }
 
 .filters select, .filters input {
@@ -14,10 +15,11 @@
     font-weight: bold;
     color: #04103B;
     background-color: #F1F5FC;
+    font-family: 'Lexend', sans-serif;
 }
 
 .stats-container {
-    width: 87%;
+    width: 60%;
     display: grid;
     grid-template-columns: 2fr 1fr;
     gap: 3rem;
@@ -103,4 +105,11 @@
 
 .details-btn:hover {
     background-color: #d32f53;
+}
+
+.smth {
+    max-height: 80vh;
+    overflow-y: auto; 
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
 }
