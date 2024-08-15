@@ -36,7 +36,7 @@ export class DonorCardComponent {
   @Input() jmbg: string = '';
   @Input() donorFullName: string = '';
   @Input() donorEmailAddress: string = '';
-  @Input() bloodType: number | null = null;
+  @Input() bloodType: string = '';
   @Input() placeName: string = '';
   @Input() isActive: boolean = false;
   @Input() lastDonationDate: Date | null = null;

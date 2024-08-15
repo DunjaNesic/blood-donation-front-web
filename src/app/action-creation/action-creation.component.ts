@@ -183,7 +183,48 @@ export class ActionCreationComponent implements OnInit {
 
   ngOnInit(): void {
     this.scrollService.scrollToTop();
-
+  
+    this.initializeForm();
+  
+    this.authService.setUserFromStorage().then(() => {
+      const signedOfficial = this.authService.currentlySignedInUser();
+      this.signedID = signedOfficial?.officialID;
+  
+      console.log('Signed ID:', this.signedID);
+  
+      if (this.signedID !== undefined) {
+        this.officialService.getAll('/itk/officials', this.signedID)
+          .subscribe({
+            next: (off) => this.officials = off,
+            error: (error) => console.error('Error fetching officials:', error)
+          });
+      } else {
+        console.error('signedID is undefined, not fetching officials');
+      }
+  
+      this.placeService.getAll('/itk/places')
+        .subscribe({
+          next: (place) => this.places = place,
+          error: (error) => console.error('Error fetching places:', error)
+        });
+  
+      this.volunteerService.getVolunteers('/itk/volunteers')
+        .subscribe({
+          next: (vol) => this.volunteers = vol,
+          error: (error) => console.error('Error fetching volunteers:', error)
+        });
+  
+      this.donorService.getDonors('/itk/donors')
+        .subscribe({
+          next: (donor) => this.donors = donor,
+          error: (error) => console.error('Error fetching donors:', error)
+        });
+    }).catch(error => {
+      console.error('Error setting user from storage:', error);
+    });
+  }
+  
+  initializeForm(): void {
     this.form = this.fb.group({
       actionName: ['', [Validators.required]],
       actionDate: [null, [Validators.required, this.dateValidator]],
@@ -191,34 +232,7 @@ export class ActionCreationComponent implements OnInit {
       exactLocation: ['', [Validators.required]],
       placeID: [null, [Validators.required]]
     });
-
-    const signedOfficial = this.authService.currentlySignedInUser();
-    this.signedID = signedOfficial?.officialID;
-
-    this.officialService.getAll('/itk/officials', this.signedID)
-      .subscribe({
-        next: (off) => this.officials = off,
-        error: (error) => console.error('Error fetching officials:', error)
-      });
-
-    this.placeService.getAll('/itk/places')
-      .subscribe({
-        next: (place) => this.places = place,
-        error: (error) => console.error('Error fetching places:', error)
-      });
-
-    this.volunteerService.getVolunteers('/itk/volunteers')
-      .subscribe({
-        next: (vol) => this.volunteers = vol,
-        error: (error) => console.error('Error fetching volunteers:', error)
-      });
-
-    this.donorService.getDonors('/itk/donors')
-      .subscribe({
-        next: (donor) => this.donors = donor,
-        error: (error) => console.error('Error fetching donors:', error)
-      });
-  }
+  }  
 
   parseDate(dateString: string): Date {
     return new Date(dateString);

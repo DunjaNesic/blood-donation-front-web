@@ -55,7 +55,7 @@ export interface Volunteer {
 export interface Donor {
     jmbg: string,
     donorFullName: string,
-    bloodType: number,
+    bloodType: string,
     placeName: string,
     isActive: boolean,
     lastDonationDate: string,
@@ -64,4 +64,21 @@ export interface Donor {
 export interface Place {
     placeID: number,
     placeName: string
+}
+
+export interface Question {
+    questionID: number,
+    questionText: string
+}
+
+export interface QuestionnaireQuestion {
+    questionID: number,
+    answer: boolean
+}
+
+export interface Questionnaire {
+    approved: boolean,
+    questionnaireTitle: string,
+    remark: string,
+    answeredQuestions: QuestionnaireQuestion[]
 }

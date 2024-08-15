@@ -1,0 +1,7 @@
+.quest-content{
+min-height: 100vh;
+display: flex;
+gap: 2rem;
+flex-wrap: wrap;
+padding-top: 3rem;
+}

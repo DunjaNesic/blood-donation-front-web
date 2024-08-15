@@ -19,7 +19,9 @@
 
 .donor-list {
     max-height: 25rem;
-    overflow-y: auto;
+    overflow-y: auto; 
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
 }
 
 .donor-item {
@@ -40,6 +42,7 @@
 .donor-info {
     display: flex;
     align-items: center;
+    flex-grow: 1;
 }
 
 .donor-details p {
@@ -49,6 +52,7 @@
 .blood-type {
     font-weight: bold;
     font-size: 1.2rem;
+    margin-right: 3rem;
 }
 
 .add-button {

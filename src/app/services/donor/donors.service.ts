@@ -28,4 +28,10 @@ export class DonorsService {
       responseType: 'json'
     });
   }
+
+  getPresentActionDonors(actionID: number): Observable<any[]> {
+    const url = `/itk/donors/present?actionID=${actionID}`;
+    return this.apiService.get<any[]>(url);
+  }
+
 }

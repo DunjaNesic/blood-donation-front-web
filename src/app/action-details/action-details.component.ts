@@ -4,7 +4,7 @@ import { Donor, Volunteer } from '../../types';
 import { CommonModule } from '@angular/common';
 import { CalledVolunteerCardComponent } from "../called-volunteer-card/called-volunteer-card.component";
 import { HeaderComponent } from "../header/header.component";
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { DonorModalComponent } from '../donor-modal/donor-modal.component';
 import { VolunteerModalComponent } from '../volunteer-modal/volunteer-modal.component';
@@ -14,7 +14,7 @@ import { VolunteersService } from '../services/volunteer/volunteers.service';
 @Component({
   selector: 'app-action-details',
   standalone: true,
-  imports: [CalledDonorCardComponent, CommonModule, CalledVolunteerCardComponent, HeaderComponent],
+  imports: [CalledDonorCardComponent, CommonModule, CalledVolunteerCardComponent, HeaderComponent, RouterOutlet],
   template: `
     <app-header [title]="'Detalji izabrane akcije'"></app-header>
     <div class="action-details-container">
@@ -42,6 +42,7 @@ import { VolunteersService } from '../services/volunteer/volunteers.service';
         <button class="update-button" (click)="update()">Popunjavanje upitnika</button>
       </div>
     </div>
+    <router-outlet></router-outlet>
   `,
   styleUrls: ['./action-details.component.css']
 })
@@ -49,7 +50,7 @@ export class ActionDetailsComponent implements OnInit {
   donors: Donor[] = [];
   volunteers: Volunteer[] = [];
 
-  constructor(private route: ActivatedRoute, private dialog: MatDialog, private donorService: DonorsService, private volunteerService: VolunteersService) {}
+  constructor(private route: ActivatedRoute, private router: Router, private dialog: MatDialog, private donorService: DonorsService, private volunteerService: VolunteersService) {}
 
   ngOnInit(): void {
     this.fetchData();
@@ -112,7 +113,8 @@ export class ActionDetailsComponent implements OnInit {
   }
 
   update(): void {
-    console.log('Update button clicked');
+    const actionID = Number(this.route.snapshot.paramMap.get('actionID'));
+    this.router.navigateByUrl(`/details/${actionID}/questionnaires`); 
   }
 
   addDonor(): void {
