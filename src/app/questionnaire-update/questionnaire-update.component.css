@@ -10,11 +10,17 @@
   }
   
   .questionnaire-container {
-    background-color: #F6F9FD;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
     border-radius: 0.5rem;
     padding: 2rem;
     width: 100%;
-    margin-bottom: 1rem;
+  }
+
+  .question-container {
+    background-color: #F6F9FD;
+    padding: 2rem;
   }
   
   .question-header {
@@ -68,4 +74,72 @@
   span{
     border: 2px solid #202530;
     padding: 1rem 7rem;
+  }
+  .option-text {
+    font-weight: bold;
+  }
+  
+  .selected input {
+    cursor: not-allowed;
+  }
+  
+  .selected .option-text {
+    font-weight: bold;
+  }
+  
+  .remark-container {
+    width: 97%;
+    background-color: #F6F9FD;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    font-size: 1.25rem;
+  }
+  
+  .remark-container p {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  .remark-container input {
+    width: 70%;
+    margin-top: 1rem;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    font-family: 'Lexend', sans-serif;
+  }
+  
+  .approved-container {
+    width: 97%;
+    margin-top: 1rem;
+    background-color: #F6F9FD;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    font-size: 1.25rem;
+    margin-top: 2rem;
+  }
+  
+  .approved-container p {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  .approved-container label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .approved-container input[type="radio"] {
+    accent-color: #F13662;
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+  
+  .approved-container .option-text {
+    font-size: 1rem;
+    font-family: 'Lexend', sans-serif;
   }

@@ -21,4 +21,8 @@ export class ApiService {
   post<T>(url: string, body: any, options: any): Observable<T>{
     return this.httpClient.post<T>(`${this.baseUrl}${url}`, body, options) as Observable<T>;  
   }
+
+  put<T>(url: string, body: any, options?: Options): Observable<T> {
+    return this.httpClient.put<T>(`${this.baseUrl}${url}`, body, options) as Observable<T>;
+  }
 }

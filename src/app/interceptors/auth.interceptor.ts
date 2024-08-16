@@ -15,6 +15,7 @@ export const authInterceptor: HttpInterceptorFn = (req: HttpRequest<any>, next: 
     req = req.clone({
       setHeaders: {
         Authorization: token ? `Token ${token}` : '',
+        'Access-Control-Allow-Origin': `*`,
       }
     });
   }

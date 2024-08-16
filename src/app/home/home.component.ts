@@ -28,8 +28,8 @@ import { VolunteersService } from '../services/volunteer/volunteers.service';
     <div class="smth" *ngIf="actions">
       <div *ngFor="let action of actions" class="action-item">
       <button class="details-btn" (click)="goToDetails(action.actionID)">Detalji</button>
-      <span class="action-name">{{ action.actionName }}</span>
-        <span class="action-date">{{ action.actionDate }}</span>
+        <span class="action-name">{{ action.actionName }}</span>
+        <span class="action-date">{{ action.actionDate | date: 'dd. MM. yyyy.' }}</span>
         <span class="action-time">{{ action.actionTimeFromTo }}</span>
         <span class="action-location">{{ action.placeName }}</span>
         <span class="action-address">{{ action.exactLocation }}</span>

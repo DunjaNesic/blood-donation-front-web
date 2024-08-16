@@ -75,6 +75,9 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "proxyConfig": "src/environments/proxy.config.js"
+          },
           "configurations": {
             "production": {
               "buildTarget": "blood_donation:build:production"
